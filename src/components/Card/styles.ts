@@ -28,10 +28,32 @@ export const CardImg = styled.img`
     height: 217px;
     object-fit: cover;
 `;
+export const InfoContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 7px 0 7px;
+`;
 
 export const CardTitulo = styled.h3`
     font-size: 18px;
     margin-left: 7px;
+`;
+
+export const AvaliacaoContainer = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+export const Avaliacao = styled.ul`
+    display: flex;
+    align-items: center;
+`;
+
+export const AvaliacaoTexto = styled.li`
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 8px;
 `;
 export const CardDescricao = styled.p`
     font-size: 14px;

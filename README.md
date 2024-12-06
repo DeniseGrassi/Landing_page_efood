@@ -48,3 +48,4 @@ export default tseslint.config({
   },
 });
 ```
+<!-- para rodar: npm run dev -->

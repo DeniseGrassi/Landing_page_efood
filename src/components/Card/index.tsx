@@ -6,9 +6,13 @@ import {
     CardDescricao,
     CardTitulo,
     Infos,
+    InfoContainer,
+    AvaliacaoContainer,
+    Avaliacao,
+    AvaliacaoTexto,
 } from './styles';
 
-import HiokiSushi from '../../assets/hioki_sushi.png';
+// import imageEstrela from '../../assets/estrelaNota.png'
 import Tag from '../Tags';
 
 type Props = {
@@ -22,7 +26,6 @@ type Props = {
 };
 
 const Card = ({
-    id,
     descricao,
     nota,
     titulo,
@@ -32,7 +35,7 @@ const Card = ({
 }: Props) => (
     <CardContainer>
         <CardUnt>
-            <CardImg src={imagem} alt="foto do Hioki Sushi" />
+            <CardImg src={imagem} alt="Imagem do restaurante" />
             <CardTitulo>{titulo}</CardTitulo>
             <Infos>
                 {infos.map((info) => (
@@ -44,53 +47,18 @@ const Card = ({
                     </Tag>
                 ))}
             </Infos>
-            <CardDescricao>
-                {' '}
-                Peça já o melhor da culinária japonesa no conforto da sua casa!
-                Sushis frescos, sashimis deliciosos e pratos quentes
-                irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade
-                garantida.Experimente o Japão sem sair do lar com nosso
-                delivery!
-            </CardDescricao>
-            <CardBotao> Saiba Mais </CardBotao>
-        </CardUnt>
-        <CardUnt>
-            <CardImg src={HiokiSushi} alt="foto do Hioki Sushi" />
-            <CardTitulo>Hioki Sushi</CardTitulo>
-            <CardDescricao>
-                {' '}
-                Peça já o melhor da culinária japonesa no conforto da sua casa!
-                Sushis frescos, sashimis deliciosos e pratos quentes
-                irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade
-                garantida.Experimente o Japão sem sair do lar com nosso
-                delivery!
-            </CardDescricao>
-            <CardBotao> Saiba Mais </CardBotao>
-        </CardUnt>
-        <CardUnt>
-            <CardImg src={HiokiSushi} alt="foto do Hioki Sushi" />
-            <CardTitulo>Hioki Sushi</CardTitulo>
-            <CardDescricao>
-                {' '}
-                Peça já o melhor da culinária japonesa no conforto da sua casa!
-                Sushis frescos, sashimis deliciosos e pratos quentes
-                irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade
-                garantida.Experimente o Japão sem sair do lar com nosso
-                delivery!
-            </CardDescricao>
-            <CardBotao> Saiba Mais </CardBotao>
-        </CardUnt>
-        <CardUnt>
-            <CardImg src={HiokiSushi} alt="foto do Hioki Sushi" />
-            <CardTitulo>Hioki Sushi</CardTitulo>
-            <CardDescricao>
-                {' '}
-                Peça já o melhor da culinária japonesa no conforto da sua casa!
-                Sushis frescos, sashimis deliciosos e pratos quentes
-                irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade
-                garantida.Experimente o Japão sem sair do lar com nosso
-                delivery!
-            </CardDescricao>
+            <InfoContainer>
+                <CardTitulo>{titulo}</CardTitulo>
+                <AvaliacaoContainer>
+                    <Avaliacao>
+                        <AvaliacaoTexto>{nota}</AvaliacaoTexto>
+                        <li>
+                            <img src={imageEstrela} alt="estrela" />
+                        </li>
+                    </Avaliacao>
+                </AvaliacaoContainer>
+            </InfoContainer>
+            <CardDescricao>{descricao}</CardDescricao>
             <CardBotao> Saiba Mais </CardBotao>
         </CardUnt>
     </CardContainer>
