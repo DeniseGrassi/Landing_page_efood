@@ -1,23 +1,24 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalCss } from './styles';
 
-import Header from './components/Header';
 import Home from './Pages';
+import Perfil from './components/PerfilRest';
+import Footer from './components/Footer';
 
-const rotas = createBrowserRouter([
-    {
-        path: '/',
-        element: <Home />,
-    },
-]);
+const Rotas = () => (
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/perfil" element={<Perfil />} />
+    </Routes>
+);
 
 function App() {
     return (
-        <>
+        <BrowserRouter>
             <GlobalCss />
-            <Header />
-            <RouterProvider router={rotas} />
-        </>
+            <Rotas />
+            <Footer />
+        </BrowserRouter>
     );
 }
 

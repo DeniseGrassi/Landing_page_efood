@@ -3,6 +3,7 @@ import Card from '../models/Restaurante';
 import japones from '../assets/hioki_sushi.png';
 import estrela from '../assets/estrelaNota.png';
 import laDolce from '../assets/LaDolce.png';
+import Header from '../components/Header';
 
 const restaurantesDaEfood: Card[] = [
     {
@@ -25,11 +26,50 @@ const restaurantesDaEfood: Card[] = [
         descricao:
             'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
     },
+    {
+        id: 3,
+        imagem: laDolce,
+        infos: [' Italiana'],
+        titulo: 'La Dolce Vita Trattoria',
+        nota: '4.6',
+        imageEstrela: estrela,
+        descricao:
+            'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
+    },
+    {
+        id: 4,
+        imagem: laDolce,
+        infos: [' Italiana'],
+        titulo: 'La Dolce Vita Trattoria',
+        nota: '4.6',
+        imageEstrela: estrela,
+        descricao:
+            'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
+    },
+    {
+        id: 5,
+        imagem: laDolce,
+        infos: [' Italiana'],
+        titulo: 'La Dolce Vita Trattoria',
+        nota: '4.6',
+        imageEstrela: estrela,
+        descricao:
+            'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
+    },
+    {
+        id: 6,
+        imagem: laDolce,
+        infos: [' Italiana'],
+        titulo: 'La Dolce Vita Trattoria',
+        nota: '4.6',
+        imageEstrela: estrela,
+        descricao:
+            'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
+    },
 ];
 const Home = () => (
     <>
-        <ListaRestaurantes restaurante={restaurantesDaEfood} />
-        <ListaRestaurantes restaurante={restaurantesDaEfood} />
+        <Header />
         <ListaRestaurantes restaurante={restaurantesDaEfood} />
     </>
 );

@@ -9,6 +9,7 @@ import {
     InfoContainer,
     AvaliacaoContainer,
     Avaliacao,
+    BotaoLink,
     AvaliacaoTexto,
 } from './styles';
 
@@ -36,7 +37,7 @@ const Card = ({
     <CardContainer>
         <CardUnt>
             <CardImg src={imagem} alt="Imagem do restaurante" />
-            <CardTitulo>{titulo}</CardTitulo>
+
             <Infos>
                 {infos.map((info) => (
                     <Tag
@@ -59,7 +60,10 @@ const Card = ({
                 </AvaliacaoContainer>
             </InfoContainer>
             <CardDescricao>{descricao}</CardDescricao>
-            <CardBotao> Saiba Mais </CardBotao>
+            <CardBotao>
+                {' '}
+                <BotaoLink to="/Perfil">Saiba mais</BotaoLink>
+            </CardBotao>
         </CardUnt>
     </CardContainer>
 );

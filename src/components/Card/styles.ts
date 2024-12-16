@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 import { cores } from '../../styles';
+import { Link } from 'react-router-dom';
 
 export const CardContainer = styled.div`
-    max-width: 1024px;
+    flex-direction: column;
+    justify-content: space-between; /* Distribui os elementos superior e inferior */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    min-height: 300px; /* Altura mínima para manter a consistência */
+    max-width: 1240px; /* Largura fixa para consistência visual */
     margin: 0 auto;
     padding: 0 16px;
     display: flex; /* Adiciona o flexbox */
     gap: 16px; /* Espaçamento entre os cards */
     flex-wrap: wrap; /* Para garantir que os cards fiquem organizados em telas menores */
-    justify-content: center; /* Centraliza os cards horizontalmente */
+    justify-content: center; /*Centraliza os cards horizontalmente*/
+    flex-wrap: wrap;
 `;
 
 export const CardUnt = styled.div`
@@ -75,7 +81,7 @@ export const CardBotao = styled.button`
     align-self: flex-start;
 
     &:hover {
-        background-color: #e66750;
+        background-color: #e66751;
     }
 `;
 
@@ -83,4 +89,9 @@ export const Infos = styled.div`
     position: absolute;
     top: 16px;
     right: 16px;
+`;
+
+export const BotaoLink = styled(Link)`
+    color: ${cores.laranjaClaro};
+    text-decoration: none;
 `;
