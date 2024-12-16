@@ -37,7 +37,6 @@ const Card = ({
     <CardContainer>
         <CardUnt>
             <CardImg src={imagem} alt="Imagem do restaurante" />
-
             <Infos>
                 {infos.map((info) => (
                     <Tag

@@ -3,30 +3,28 @@ import { cores } from '../../styles';
 import { Link } from 'react-router-dom';
 
 export const CardContainer = styled.div`
-    flex-direction: column;
-    justify-content: space-between; /* Distribui os elementos superior e inferior */
-    align-items: flex-start; /* Alinha os itens à esquerda */
-    min-height: 300px; /* Altura mínima para manter a consistência */
-    max-width: 1240px; /* Largura fixa para consistência visual */
+    align-items: flex-start;
+    min-height: 300px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 0 16px;
-    display: flex; /* Adiciona o flexbox */
-    gap: 16px; /* Espaçamento entre os cards */
-    flex-wrap: wrap; /* Para garantir que os cards fiquem organizados em telas menores */
-    justify-content: center; /*Centraliza os cards horizontalmente*/
+    display: flex;
+    gap: 16px;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 export const CardUnt = styled.div`
     background-color: ${cores.corFundo};
-    width: 100%;
-    max-width: 472px;
+    min-width: 300px;
+    max-width: 100%;
+    height: 398px;
     margin-bottom: 48px;
     border: 1px solid ${cores.laranjaEscuro};
     display: flex;
     flex-direction: column;
     position: relative;
-    flex-grow: 1; /* Faz os cards crescerem igualmente, se necessário */
+    flex: 1;
 `;
 
 export const CardImg = styled.img`
@@ -38,12 +36,11 @@ export const InfoContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 8px 7px 0 7px;
+    margin: 8px 8px 0 8px;
 `;
 
 export const CardTitulo = styled.h3`
     font-size: 18px;
-    margin-left: 7px;
 `;
 
 export const AvaliacaoContainer = styled.div`
@@ -63,10 +60,8 @@ export const AvaliacaoTexto = styled.li`
 `;
 export const CardDescricao = styled.p`
     font-size: 14px;
-    margin-top: 16px;
+    margin: 12px 8px;
     line-height: 1.5;
-    margin-left: 7px;
-    margin-right: 7px;
 `;
 
 export const CardBotao = styled.button`
@@ -77,7 +72,9 @@ export const CardBotao = styled.button`
     cursor: pointer;
     font-weight: bold;
     font-size: 14px;
-    margin: 16px 7px 8px 7px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+    margin-top: auto;
     align-self: flex-start;
 
     &:hover {
