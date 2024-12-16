@@ -1,6 +1,6 @@
 import {
     CardContainer,
-    CardUnt,
+    CardUnit,
     CardImg,
     CardBotao,
     CardDescricao,
@@ -13,7 +13,7 @@ import {
     AvaliacaoTexto,
 } from './styles';
 
-// import imageEstrela from '../../assets/estrelaNota.png'
+
 import Tag from '../Tags';
 
 type Props = {
@@ -35,7 +35,7 @@ const Card = ({
     imageEstrela,
 }: Props) => (
     <CardContainer>
-        <CardUnt>
+        <CardUnit>
             <CardImg src={imagem} alt="Imagem do restaurante" />
             <Infos>
                 {infos.map((info) => (
@@ -63,7 +63,7 @@ const Card = ({
                 {' '}
                 <BotaoLink to="/Perfil">Saiba mais</BotaoLink>
             </CardBotao>
-        </CardUnt>
+        </CardUnit>
     </CardContainer>
 );
 

@@ -3,28 +3,21 @@ import { cores } from '../../styles';
 import { Link } from 'react-router-dom';
 
 export const CardContainer = styled.div`
-    align-items: flex-start;
-    min-height: 300px;
-    max-width: 1240px;
+    max-width: 1024px;
     margin: 0 auto;
     padding: 0 16px;
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
 `;
 
-export const CardUnt = styled.div`
+export const CardUnit = styled.div`
     background-color: ${cores.corFundo};
-    min-width: 300px;
-    max-width: 100%;
-    height: 398px;
+    width: 100%;
+    height: 90%;
+    max-width: 472px;
     margin-bottom: 48px;
     border: 1px solid ${cores.laranjaEscuro};
     display: flex;
     flex-direction: column;
     position: relative;
-    flex: 1;
 `;
 
 export const CardImg = styled.img`
