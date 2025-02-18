@@ -2,6 +2,7 @@ import Card from '../Card';
 import { CardContainer } from '../Card/styles';
 import Restaurante from '../../models/Restaurante';
 import { Lista } from './styles';
+
 export type Props = {
     restaurante: Restaurante[];
 };
@@ -18,7 +19,7 @@ const ListaRestaurantes = ({ restaurante }: Props) => (
                         imageEstrela={restaurante.imageEstrela}
                         descricao={restaurante.descricao}
                         infos={restaurante.infos}
-                        id={0}
+                        id={restaurante.id}
                     />
                 ))}
             </Lista>

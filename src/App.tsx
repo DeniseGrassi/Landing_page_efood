@@ -1,24 +1,28 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalCss } from './styles';
 
-import Home from './Pages';
+import Home from './Pages/home';
 import Perfil from './components/PerfilRest';
 import Footer from './components/Footer';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const Rotas = () => (
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/Perfil/:id" element={<Perfil />} />
     </Routes>
 );
 
 function App() {
     return (
-        <BrowserRouter>
-            <GlobalCss />
-            <Rotas />
-            <Footer />
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <GlobalCss />
+                <Rotas />
+                <Footer />
+            </BrowserRouter>
+        </Provider>
     );
 }
 
