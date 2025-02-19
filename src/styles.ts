@@ -19,19 +19,37 @@ export const GlobalCss = createGlobalStyle`
     
     }
 
+        html, body, #root {
+        height: 100%;
+        /* overflow: hidden; */
+    }
+
     body {
-    background-color: ${cores.corFundo};
-    color: ${cores.laranjaEscuro};
+        background-color: ${cores.corFundo};
+        color: ${cores.laranjaEscuro};
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+        #root {
+        display: flex;
+        flex-direction: column;
+                flex-grow: 1;
+        min-height: 100vh; 
+        /* height: 100%; Garante que o conteúdo ocupe toda a tela */
     }
 `;
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100%; /* Isso impede que o Container fique menor que a tela */
+    width: 100%;
+    flex-grow: 1; /* Isso força ele a ocupar todo o espaço disponível */
 `;
 
 export const Content = styled.div`
-    flex: 1;
+    flex-grow: 1;
+    width: 100%;
 `;
 
 export default GlobalCss;

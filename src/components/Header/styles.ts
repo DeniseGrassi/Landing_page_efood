@@ -12,6 +12,10 @@ export const HeaderContainer = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    @media (max-width: 750px) {
+        height: 300px;
+    }
 `;
 
 export const HeaderLogo = styled.img`
@@ -23,4 +27,8 @@ export const HeaderTitle = styled.h1`
     font-size: 36px;
     margin-top: 180px;
     font-family: 'Roboto', sans-serif;
+    @media (max-width: 750px) {
+        margin-top: 80px;
+        font-size: 26px;
+    }
 `;

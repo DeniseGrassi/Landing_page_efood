@@ -3,15 +3,12 @@ import { cores } from '../../styles';
 
 export const ContainerFooter = styled.div`
     background-color: ${cores.laranjaClaro};
-    margin-top: 120px;
     display: flex;
     justify-content: center;
-    width: 100vw; /* Garante que o elemento ocupe toda a largura da tela */
-    min-height: 100px; /* Ajuste a altura conforme necessário */
-
-    @media (max-width: 768px) {
-        margin-top: 60px; /* Ajuste para telas menores */
-    }
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
 `;
 
 export const FooterDiv = styled.div`
@@ -22,17 +19,17 @@ export const FooterDiv = styled.div`
 `;
 
 export const DescricaoFooter = styled.p`
-    margin-top: 80px;
-    margin-bottom: 40px;
+    margin-top: 15px;
+    margin-bottom: 30px;
     max-width: 500px;
     font-size: 10px;
     font-weight: 400;
 `;
 
 export const Logo = styled.img`
-    margin-top: 34px;
+    margin-top: 30px;
 `;
 
 export const RedesSociais = styled.img`
-    margin-top: 34px;
+    margin-top: 15px;
 `;
