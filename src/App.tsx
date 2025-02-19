@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { GlobalCss } from './styles';
+import { Container, Content, GlobalCss } from './styles';
 
 import Home from './Pages/home';
 import Perfil from './components/PerfilRest';
@@ -19,8 +19,12 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <GlobalCss />
-                <Rotas />
-                <Footer />
+                <Container>
+                    <Content>
+                        <Rotas />
+                    </Content>
+                    <Footer />
+                </Container>
             </BrowserRouter>
         </Provider>
     );

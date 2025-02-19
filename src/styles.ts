@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const cores = {
     corFundo: '#FFF8F2',
@@ -16,12 +16,22 @@ export const GlobalCss = createGlobalStyle`
     list-style: none;
     text-decoration: none;
     font-family: Roboto, sans-serif;
+    
     }
 
     body {
     background-color: ${cores.corFundo};
     color: ${cores.laranjaEscuro};
     }
+`;
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+`;
+
+export const Content = styled.div`
+    flex: 1;
 `;
 
 export default GlobalCss;

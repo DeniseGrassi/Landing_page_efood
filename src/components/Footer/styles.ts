@@ -6,6 +6,12 @@ export const ContainerFooter = styled.div`
     margin-top: 120px;
     display: flex;
     justify-content: center;
+    width: 100vw; /* Garante que o elemento ocupe toda a largura da tela */
+    min-height: 100px; /* Ajuste a altura conforme necessário */
+
+    @media (max-width: 768px) {
+        margin-top: 60px; /* Ajuste para telas menores */
+    }
 `;
 
 export const FooterDiv = styled.div`
@@ -22,7 +28,6 @@ export const DescricaoFooter = styled.p`
     font-size: 10px;
     font-weight: 400;
 `;
-
 
 export const Logo = styled.img`
     margin-top: 34px;
