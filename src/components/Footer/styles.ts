@@ -6,7 +6,7 @@ export const ContainerFooter = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
-    position: sticky;
+
     bottom: 0;
     margin-top: auto;
 `;
