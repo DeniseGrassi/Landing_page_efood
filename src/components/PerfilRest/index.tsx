@@ -27,14 +27,15 @@ import {
 } from './styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { adicionarProduto } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { adicionarProduto, toggleCarrinho } from '../../store';
 
 const Perfil: React.FC = () => {
     const { id } = useParams();
     const [restaurante, setRestaurante] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pratoSelecionado, setPratoSelecionado] = useState<any>(null);
+    const { items } = useSelector((state: any) => state.carrinho);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -72,6 +73,7 @@ const Perfil: React.FC = () => {
                 foto: prato.foto,
             }),
         );
+        dispatch(toggleCarrinho());
         setIsModalOpen(false);
     };
     if (!restaurante) {
@@ -90,8 +92,9 @@ const Perfil: React.FC = () => {
                     </ContainerVoltar>
                 </NavContainer>
                 <LogoPerfil src={logo} alt="Logo Efood" />
-                <CartInfo>
-                    <span> 0 </span> produto(s) no carrinho
+                <CartInfo onClick={() => dispatch(toggleCarrinho())}>
+                    <span>{items.length} </span>
+                    produto(s) no carrinho
                 </CartInfo>
             </HeaderPerfil>
 

@@ -1,10 +1,29 @@
 import styled from 'styled-components';
 import { cores } from '../../styles';
 
+export const Overlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Overlay com 80% de opacidade */
+    z-index: 99; /* Z-index para ficar atrás do carrinho */
+`;
+export const Vazio = styled.p`
+    color: ${cores.laranjaClaro};
+    font-size: 30px;
+`;
+
 export const CarrinhoContainer = styled.div`
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 360px;
+    z-index: 100; /* Z-index maior que o overlay */
     display: flex;
     justify-content: flex-end;
-    height: 100vh;
 `;
 
 export const BarraLateral = styled.aside`

@@ -11,11 +11,13 @@ interface Produto {
 interface CarrinhoState {
     items: Produto[];
     total: number;
+    isVisible: boolean;
 }
 
 const initialState: CarrinhoState = {
     items: [],
     total: 0,
+    isVisible: false,
 };
 
 const carrinhoSlice = createSlice({
@@ -38,6 +40,9 @@ const carrinhoSlice = createSlice({
                 0,
             );
         },
+        toggleCarrinho(state) {
+            state.isVisible = !state.isVisible;
+        },
     },
 });
 
@@ -47,5 +52,6 @@ const store = configureStore({
     },
 });
 
-export const { adicionarProduto, removerProduto } = carrinhoSlice.actions;
+export const { adicionarProduto, removerProduto, toggleCarrinho } =
+    carrinhoSlice.actions;
 export default store;

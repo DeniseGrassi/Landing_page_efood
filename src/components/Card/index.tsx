@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 import Tag from '../Tags';
-
+import { useState } from 'react';
 
 type Props = {
     id: number;
@@ -35,6 +35,15 @@ const Card = ({
     imageEstrela,
     id,
 }: Props) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const truncateDescription = (descricao: string, maxLength: number) => {
+        if (descricao.length > maxLength) {
+            return descricao.slice(0, maxLength) + '...';
+        }
+        return descricao;
+    };
+
     return (
         <CardContainer>
             <CardUnit>
@@ -60,7 +69,28 @@ const Card = ({
                         </Avaliacao>
                     </AvaliacaoContainer>
                 </InfoContainer>
-                <CardDescricao>{descricao}</CardDescricao>
+                <CardDescricao>
+                    {' '}
+                    {isExpanded
+                        ? descricao
+                        : truncateDescription(descricao, 200)}
+                    {!isExpanded && descricao.length > 200 && (
+                        <button
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                color: '#E66767',
+                                cursor: 'pointer',
+                                padding: 0,
+                                marginLeft: 5,
+                                fontWeight: 'bold',
+                            }}
+                            onClick={() => setIsExpanded(true)}
+                        >
+                            Ler mais
+                        </button>
+                    )}
+                </CardDescricao>
                 <CardBotao>
                     <BotaoLink to={`/Perfil/${id}`}>Saiba mais</BotaoLink>
                 </CardBotao>

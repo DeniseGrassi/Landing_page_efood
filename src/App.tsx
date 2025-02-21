@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container, Content, GlobalCss } from './styles';
+import { Provider } from 'react-redux';
 
 import Home from './Pages/home';
 import Perfil from './components/PerfilRest';
 import Footer from './components/Footer';
-import { Provider } from 'react-redux';
+import Carrinho from './components/Carrinho';
 import store from './store';
 
 const Rotas = () => (
@@ -25,6 +26,7 @@ function App() {
                     </Content>
                     <Footer />
                 </Container>
+                <Carrinho />
             </BrowserRouter>
         </Provider>
     );
