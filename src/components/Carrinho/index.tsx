@@ -16,7 +16,6 @@ import {
     Total,
     IconeLixeira,
     Overlay,
-    Vazio,
 } from './styles';
 
 const Carrinho = () => {
