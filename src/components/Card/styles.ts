@@ -21,10 +21,12 @@ export const CardUnit = styled.div`
 `;
 
 export const CardImg = styled.img`
-    width: 100%;
-    height: 217px;
-    object-fit: cover;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
 `;
+
 export const InfoContainer = styled.div`
     display: flex;
     justify-content: space-between;

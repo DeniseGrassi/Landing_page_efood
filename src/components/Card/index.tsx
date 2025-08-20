@@ -1,102 +1,126 @@
+import { useMemo, useState } from "react";
 import {
-    CardContainer,
-    CardUnit,
-    CardImg,
-    CardBotao,
-    CardDescricao,
-    CardTitulo,
-    Infos,
-    InfoContainer,
-    AvaliacaoContainer,
-    Avaliacao,
-    BotaoLink,
-    AvaliacaoTexto,
-} from './styles';
+  CardContainer,
+  CardUnit,
+  CardImg,
+  CardBotao,
+  CardDescricao,
+  CardTitulo,
+  Infos,
+  InfoContainer,
+  AvaliacaoContainer,
+  Avaliacao,
+  BotaoLink,
+  AvaliacaoTexto
+} from "./styles";
 
-import Tag from '../Tags';
-import { useState } from 'react';
+import Tag from "../Tags";
 
 type Props = {
-    id: number;
-    titulo: string;
-    descricao: string;
-    nota: string;
-    imagem: string;
-    imageEstrela: string;
-    infos: string[];
+  id: number;
+  titulo: string;
+  descricao: string;
+  nota: string;
+  imagem: string;
+  imageEstrela: string;
+  infos: string[];
 };
 
 const Card = ({
-    descricao,
-    nota,
-    titulo,
-    imagem,
-    infos,
-    imageEstrela,
-    id,
+  descricao,
+  nota,
+  titulo,
+  imagem,
+  infos,
+  imageEstrela,
+  id
 }: Props) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-    const truncateDescription = (descricao: string, maxLength: number) => {
-        if (descricao.length > maxLength) {
-            return descricao.slice(0, maxLength) + '...';
-        }
-        return descricao;
-    };
+  const hasLong = descricao.length > 200;
+  const texto = expanded
+    ? descricao
+    : hasLong
+    ? `${descricao.slice(0, 200)}...`
+    : descricao;
 
-    return (
-        <CardContainer>
-            <CardUnit>
-                <CardImg src={imagem} alt="Imagem do restaurante" />
-                <Infos>
-                    {infos.map((info) => (
-                        <Tag
-                            key={info}
-                            size={info === 'italiana' ? 'pequeno' : 'grande'}
-                        >
-                            {info}
-                        </Tag>
-                    ))}
-                </Infos>
-                <InfoContainer>
-                    <CardTitulo>{titulo}</CardTitulo>
-                    <AvaliacaoContainer>
-                        <Avaliacao>
-                            <AvaliacaoTexto>{nota}</AvaliacaoTexto>
-                            <li>
-                                <img src={imageEstrela} alt="estrela" />
-                            </li>
-                        </Avaliacao>
-                    </AvaliacaoContainer>
-                </InfoContainer>
-                <CardDescricao>
-                    {' '}
-                    {isExpanded
-                        ? descricao
-                        : truncateDescription(descricao, 200)}
-                    {!isExpanded && descricao.length > 200 && (
-                        <button
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                color: '#E66767',
-                                cursor: 'pointer',
-                                padding: 0,
-                                marginLeft: 5,
-                                fontWeight: 'bold',
-                            }}
-                            onClick={() => setIsExpanded(true)}
-                        >
-                            Ler mais
-                        </button>
-                    )}
-                </CardDescricao>
-                <CardBotao>
-                    <BotaoLink to={`/Perfil/${id}`}>Saiba mais</BotaoLink>
-                </CardBotao>
-            </CardUnit>
-        </CardContainer>
-    );
+
+  const notaFmt = useMemo(() => {
+    const n = Number(String(nota).replace(",", "."));
+    return Number.isFinite(n) ? n.toFixed(1) : nota;
+  }, [nota]);
+
+  return (
+    <CardContainer>
+      <CardUnit>
+        <div style={{ position: "relative" }}>
+          <CardImg
+            src={imagem}
+            alt={`Foto do restaurante ${titulo}`}
+            loading="lazy"
+            decoding="async"
+          />
+
+          {!!infos?.length && (
+            <Infos aria-label="Categorias do restaurante">
+              {infos.map((info, idx) => (
+                <Tag
+                  key={`${info}-${idx}`}
+                  size={info.length <= 10 ? "pequeno" : "grande"}
+                >
+                  {info}
+                </Tag>
+              ))}
+            </Infos>
+          )}
+        </div>
+
+        <InfoContainer>
+          <CardTitulo>{titulo}</CardTitulo>
+
+          <AvaliacaoContainer>
+            <Avaliacao>
+              <AvaliacaoTexto>{notaFmt}</AvaliacaoTexto>
+              <img
+                src={imageEstrela}
+                alt="estrela de avaliação"
+                width={16}
+                height={16}
+              />
+            </Avaliacao>
+          </AvaliacaoContainer>
+        </InfoContainer>
+
+        <CardDescricao>
+          {texto}
+          {hasLong && (
+            <button
+              type="button"
+              aria-expanded={expanded}
+              onClick={() => setExpanded((v) => !v)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#E66767",
+                cursor: "pointer",
+                padding: 0,
+                marginLeft: 5,
+                fontWeight: "bold"
+              }}
+            >
+              {expanded ? "Ler menos" : "Ler mais"}
+            </button>
+          )}
+        </CardDescricao>
+
+        <CardBotao>
+          <BotaoLink to={`/Perfil/${id}`} aria-label={`Ver perfil de ${titulo}`}>
+            Saiba mais
+          </BotaoLink>
+        </CardBotao>
+      </CardUnit>
+    </CardContainer>
+  );
 };
 
 export default Card;

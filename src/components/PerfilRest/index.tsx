@@ -1,7 +1,7 @@
-import { Link, useParams } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import Fechar from '../../assets/fechar.png';
-import IrParaHome from '../../assets/irParaHome.png';
+import { Link, useParams } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import Fechar from "../../assets/fechar.png";
+import IrParaHome from "../../assets/irParaHome.png";
 
 import {
     AbrirModal,
@@ -17,65 +17,58 @@ import {
     ContainerVoltar,
     HeaderPerfil,
     Hero,
+    HeroInner,
     LogoPerfil,
     ModalBackdrop,
     ModalContent,
     NavContainer,
     NomeRestaurante,
     PerfilRestaurante,
-    Voltar,
-} from './styles';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { adicionarProduto, toggleCarrinho } from '../../store';
+    Voltar
+} from "./styles";
+
+import { useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { adicionarProduto, toggleCarrinho } from "../../store";
+
+import restaurantesDetalhes from "../../models/restaurantesDetalhes";
 
 const Perfil: React.FC = () => {
     const { id } = useParams();
-    const [restaurante, setRestaurante] = useState<any>(null);
+    const dispatch = useDispatch();
+    const { items } = useSelector((state: any) => state.carrinho);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pratoSelecionado, setPratoSelecionado] = useState<any>(null);
-    const { items } = useSelector((state: any) => state.carrinho);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        const fetchRestaurante = async () => {
-            try {
-                const response = await axios.get(
-                    `https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`,
-                );
-                setRestaurante(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar o restaurante:', error);
-            }
-        };
-
-        if (id) fetchRestaurante();
+    // Busca local pelo restaurante
+    const restaurante = useMemo(() => {
+        if (!id) return null;
+        return restaurantesDetalhes.find((r) => String(r.id) === String(id)) || null;
     }, [id]);
 
     const handleOpenModal = (prato: any) => {
-        console.log('Abrindo modal para:', prato);
         setPratoSelecionado(prato);
         setIsModalOpen(true);
     };
+
     const truncateDescription = (descricao: string, maxLength: number) => {
-        if (descricao.length > maxLength) {
-            return descricao.slice(0, maxLength) + '...';
-        }
-        return descricao;
+        return descricao.length > maxLength ? descricao.slice(0, maxLength) + "..." : descricao;
     };
+
     const handleAddToCart = (prato: any) => {
         dispatch(
             adicionarProduto({
                 id: prato.id,
                 nome: prato.nome,
                 preco: prato.preco,
-                foto: prato.foto,
-            }),
+                foto: prato.foto
+            })
         );
         dispatch(toggleCarrinho());
         setIsModalOpen(false);
     };
+
     if (!restaurante) {
         return <p>Carregando perfil...</p>;
     }
@@ -93,17 +86,17 @@ const Perfil: React.FC = () => {
                 </NavContainer>
                 <LogoPerfil src={logo} alt="Logo Efood" />
                 <CartInfo onClick={() => dispatch(toggleCarrinho())}>
-                    <span>{items.length} </span>
-                    produto(s) no carrinho
+                    <span>{items.length} </span>produto(s) no carrinho
                 </CartInfo>
             </HeaderPerfil>
 
             <Hero style={{ backgroundImage: `url(${restaurante.capa})` }}>
-                <Container>
+                <HeroInner>
                     <PerfilRestaurante>{restaurante.tipo}</PerfilRestaurante>
                     <NomeRestaurante>{restaurante.titulo}</NomeRestaurante>
-                </Container>
+                </HeroInner>
             </Hero>
+
             <section>
                 <Container>
                     <CardsGrid>
@@ -113,15 +106,9 @@ const Perfil: React.FC = () => {
                                 <CardContent>
                                     <CardTitle>{item.nome}</CardTitle>
                                     <CardDescription>
-                                        {truncateDescription(
-                                            item.descricao,
-                                            140,
-                                        )}
+                                        {truncateDescription(item.descricao, 140)}
                                     </CardDescription>
-
-                                    <AbrirModal
-                                        onClick={() => handleOpenModal(item)}
-                                    >
+                                    <AbrirModal onClick={() => handleOpenModal(item)}>
                                         Adicionar ao carrinho
                                     </AbrirModal>
                                 </CardContent>
@@ -130,35 +117,22 @@ const Perfil: React.FC = () => {
                     </CardsGrid>
                 </Container>
             </section>
+
             {isModalOpen && pratoSelecionado && (
                 <ModalBackdrop
                     onClick={(e) => {
-                        if (e.target === e.currentTarget) {
-                            setIsModalOpen(false);
-                        }
+                        if (e.target === e.currentTarget) setIsModalOpen(false);
                     }}
                 >
                     <ModalContent>
-                        <img
-                            src={Fechar}
-                            alt="Fechar"
-                            onClick={() => setIsModalOpen(false)}
-                        />
-                        <img
-                            src={pratoSelecionado.foto}
-                            alt={pratoSelecionado.nome}
-                        />
+                        <img src={Fechar} alt="Fechar" onClick={() => setIsModalOpen(false)} />
+                        <img src={pratoSelecionado.foto} alt={pratoSelecionado.nome} />
                         <div>
                             <h3>{pratoSelecionado.nome}</h3>
                             <p>{pratoSelecionado.descricao}</p>
                             <p>Serve: {pratoSelecionado.porcao}</p>
-                            <AddButton
-                                onClick={() =>
-                                    handleAddToCart(pratoSelecionado)
-                                }
-                            >
-                                Adicionar ao carrinho - R${' '}
-                                {pratoSelecionado.preco.toFixed(2)}
+                            <AddButton onClick={() => handleAddToCart(pratoSelecionado)}>
+                                Adicionar ao carrinho - R$ {pratoSelecionado.preco.toFixed(2)}
                             </AddButton>
                         </div>
                     </ModalContent>
@@ -168,6 +142,9 @@ const Perfil: React.FC = () => {
     );
 };
 
-<footer></footer>;
-
 export default Perfil;
+
+
+
+
+
