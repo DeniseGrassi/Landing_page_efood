@@ -4,6 +4,8 @@ import pizzaMarguerita from "../assets/pizza.png"
 import trattoriaFrente from "../assets/trattoriafrente.jpg"
 import fettucineFrutosDoMar from "../assets/LaDolce.png"
 import spaghettiPomodoro from "../assets/pomodoro.jpg"
+import sushiDeliFrente from "../assets/capaSushiDele.jpg"
+import yakisobaMar from "../assets/yakisobaMar.jpg"
 
 export type Prato = {
     id: number;
@@ -104,28 +106,28 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
             }
         ]
     },
-        {
+    {
         id: 3,
-        capa: "https://picsum.photos/seed/burger-hero/1200/400",
+        capa: sushiDeliFrente,
         tipo: "Sushi Deli",
         titulo: "Sushi Deli",
         cardapio: [
             {
-                id: 201,
-                nome: "Fettucine frutos do mar",
-                descricao: "Massa ao dente com camarões, lulas e mexilhões em molho cremoso aromatizado com vinho branco e ervas.",
-                foto: fettucineFrutosDoMar,
-                preco: 89.9,
+                id: 301,
+                nome: "Yakisoba Frutos do Mar",
+                descricao: "Macarrão oriental com cenoura, repolho verde, repolho roxo, polvo, lula, kani e camarão",
+                foto: yakisobaMar,
+                preco: 99.9,
                 porcao: "1 pessoa"
             },
-            {
-                id: 202,
-                nome: "Spaghetti Pomodoro",
-                descricao: "Massa ao dente servida com molho de tomates frescos, azeite e manjericão.",
-                foto: spaghettiPomodoro,
-                preco: 59.9,
-                porcao: "1 pessoa"
-            }
+            // {
+            //     id: 302,
+            //     nome: "Spaghetti Pomodoro",
+            //     descricao: "Massa ao dente servida com molho de tomates frescos, azeite e manjericão.",
+            //     foto: spaghettiPomodoro,
+            //     preco: 59.9,
+            //     porcao: "1 pessoa"
+            // }
         ]
     }
 ];

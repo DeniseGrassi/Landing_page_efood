@@ -93,7 +93,6 @@ export const HeroInner = styled.div`
   text-align: left;           
 `;
 
-/* “Italiana” no topo-esquerdo do hero */
 export const PerfilRestaurante = styled.span`
   position: absolute;
   top: -300px;
@@ -103,7 +102,6 @@ export const PerfilRestaurante = styled.span`
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0,0,0,.1);
 `;
-
 
 export const NomeRestaurante = styled.h3`
   margin: 0 0 10px 30px;
@@ -136,6 +134,12 @@ export const Card = styled.div`
   justify-content: space-between;
   margin: 16px;
   border: solid 8px;
+`;
+
+export const CardImageWrap = styled.div`
+  width: 100%;
+  aspect-ratio: 16 / 10;   /* ajuste o ratio que preferir */
+  overflow: hidden;
 `;
 
 export const CardImage = styled.img`
