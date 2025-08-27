@@ -41,7 +41,7 @@ const Perfil: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pratoSelecionado, setPratoSelecionado] = useState<any>(null);
 
-    // Busca local pelo restaurante
+    
     const restaurante = useMemo(() => {
         if (!id) return null;
         return restaurantesDetalhes.find((r) => String(r.id) === String(id)) || null;
