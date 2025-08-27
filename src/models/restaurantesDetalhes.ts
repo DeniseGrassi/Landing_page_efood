@@ -1,6 +1,9 @@
 // src/models/restaurantesDetalhes.ts
 import pizzaPerfil from "../assets/imgperfil.png"
 import pizzaMarguerita from "../assets/pizza.png"
+import trattoriaFrente from "../assets/trattoriafrente.jpg"
+import fettucineFrutosDoMar from "../assets/LaDolce.png"
+import spaghettiPomodoro from "../assets/pomodoro.jpg"
 
 export type Prato = {
     id: number;
@@ -79,24 +82,48 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
     },
     {
         id: 2,
-        capa: "https://picsum.photos/seed/burger-hero/1200/400",
-        tipo: "Hamburgueria",
-        titulo: "Burger House",
+        capa: trattoriaFrente,
+        tipo: "La Dolce Vitta Trattoria",
+        titulo: "Trattoria",
         cardapio: [
             {
                 id: 201,
-                nome: "Smash Burger",
-                descricao: "Dois discos smash, queijo, picles e molho da casa.",
-                foto: "https://picsum.photos/seed/burger1/400/240",
-                preco: 29.9,
+                nome: "Fettucine frutos do mar",
+                descricao: "Massa ao dente com camarões, lulas e mexilhões em molho cremoso aromatizado com vinho branco e ervas.",
+                foto: fettucineFrutosDoMar,
+                preco: 89.9,
                 porcao: "1 pessoa"
             },
             {
                 id: 202,
-                nome: "Cheddar Bacon",
-                descricao: "Blend 160g, cheddar cremoso, bacon crocante.",
-                foto: "https://picsum.photos/seed/burger2/400/240",
-                preco: 34.9,
+                nome: "Spaghetti Pomodoro",
+                descricao: "Massa ao dente servida com molho de tomates frescos, azeite e manjericão.",
+                foto: spaghettiPomodoro,
+                preco: 59.9,
+                porcao: "1 pessoa"
+            }
+        ]
+    },
+        {
+        id: 3,
+        capa: "https://picsum.photos/seed/burger-hero/1200/400",
+        tipo: "Sushi Deli",
+        titulo: "Sushi Deli",
+        cardapio: [
+            {
+                id: 201,
+                nome: "Fettucine frutos do mar",
+                descricao: "Massa ao dente com camarões, lulas e mexilhões em molho cremoso aromatizado com vinho branco e ervas.",
+                foto: fettucineFrutosDoMar,
+                preco: 89.9,
+                porcao: "1 pessoa"
+            },
+            {
+                id: 202,
+                nome: "Spaghetti Pomodoro",
+                descricao: "Massa ao dente servida com molho de tomates frescos, azeite e manjericão.",
+                foto: spaghettiPomodoro,
+                preco: 59.9,
                 porcao: "1 pessoa"
             }
         ]

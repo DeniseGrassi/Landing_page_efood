@@ -140,10 +140,12 @@ export const Card = styled.div`
 
 export const CardImage = styled.img`
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 200px;      
+  object-fit: cover;  
+  object-position: center;
   display: block;
 `;
+
 
 export const CardContent = styled.div`
   color: ${cores.laranjaClaro};
