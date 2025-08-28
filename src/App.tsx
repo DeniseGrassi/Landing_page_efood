@@ -7,11 +7,14 @@ import Perfil from './components/PerfilRest';
 import Footer from './components/Footer';
 import Carrinho from './components/Carrinho';
 import store from './store';
+import Checkout from './Pages/checkout';
+
 
 const Rotas = () => (
     <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Perfil/:id" element={<Perfil />} />
+        <Route path="/checkout" element={<Checkout />} />
     </Routes>
 );
 

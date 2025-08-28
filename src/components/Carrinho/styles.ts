@@ -7,7 +7,7 @@ export const Overlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Overlay com 80% de opacidade */
+    background: rgba(0, 0, 0, 0.8); 
     z-index: 99; /* Z-index para ficar atrás do carrinho */
 `;
 export const Vazio = styled.p`
@@ -105,4 +105,12 @@ export const BotaoContinuar = styled.button`
     border: none;
     cursor: pointer;
     margin-top: 16px;
+
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+  }
 `;
+

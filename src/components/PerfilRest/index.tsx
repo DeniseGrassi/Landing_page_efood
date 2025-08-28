@@ -10,6 +10,7 @@ import {
     CardContent,
     CardDescription,
     CardImage,
+    CardImageWrap,
     CardsGrid,
     CardTitle,
     CartInfo,
@@ -101,18 +102,20 @@ const Perfil: React.FC = () => {
                 <Container>
                     <CardsGrid>
                         {restaurante.cardapio.map((item: any) => (
-                            <Card key={item.id}>
-                                <CardImage src={item.foto} alt={item.nome} />
-                                <CardContent>
-                                    <CardTitle>{item.nome}</CardTitle>
-                                    <CardDescription>
-                                        {truncateDescription(item.descricao, 140)}
-                                    </CardDescription>
-                                    <AbrirModal onClick={() => handleOpenModal(item)}>
-                                        Adicionar ao carrinho
-                                    </AbrirModal>
-                                </CardContent>
-                            </Card>
+                        <Card key={item.id}>
+                            <CardImageWrap>
+                            <CardImage src={item.foto} alt={item.nome} />
+                            </CardImageWrap>
+                            <CardContent>
+                            <CardTitle>{item.nome}</CardTitle>
+                            <CardDescription>
+                                {truncateDescription(item.descricao, 140)}
+                            </CardDescription>
+                            <AbrirModal onClick={() => handleOpenModal(item)}>
+                                Adicionar ao carrinho
+                            </AbrirModal>
+                            </CardContent>
+                        </Card>
                         ))}
                     </CardsGrid>
                 </Container>

@@ -127,34 +127,41 @@ export const CardsGrid = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 360px;              
+  width: 360px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin: 16px;
   border: solid 8px;
+  background: #fff;
 `;
+
 
 export const CardImageWrap = styled.div`
   width: 100%;
-  aspect-ratio: 16 / 10;   /* ajuste o ratio que preferir */
+  aspect-ratio: 4 / 3;   
   overflow: hidden;
 `;
 
 export const CardImage = styled.img`
   width: 100%;
-  height: 200px;      
+  height: 100%;      
   object-fit: cover;  
-  object-position: center;
   display: block;
+  object-position: center;
 `;
 
 
 export const CardContent = styled.div`
-  color: ${cores.laranjaClaro};
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
   background-color: ${cores.laranjaEscuro};
+  color: ${cores.laranjaClaro};
+  padding: 12px 16px 16px;
 `;
+
 
 export const CardTitle = styled.h4`
   font-size: 18px;
@@ -184,7 +191,7 @@ export const AddButton = styled.button`
   }
 `;
 
-export const AbrirModal = styled.button`
+export const AbrirModal = styled.button` 
   width: 100%;
   height: 24px;
   background-color: ${cores.laranjaClaro};
@@ -192,8 +199,7 @@ export const AbrirModal = styled.button`
   border: none;
   font-size: 14px;
   font-weight: bold;
-  cursor: pointer;
-  margin-top: 8px;
+  cursor: pointer;  
 
   &:hover {
     background-color: ${cores.corFundo};

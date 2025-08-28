@@ -55,31 +55,6 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
                 preco: 39.9,
                 porcao: "2 pessoas"
             },
-            {
-                id: 104,
-                nome: "Pizza de Frango com Catupiry",
-                descricao: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!",
-                foto: pizzaMarguerita,
-                preco: 39.9,
-                porcao: "2 pessoas"
-            },
-            {
-                id: 105,
-                nome: "Pizza de Carne Seca com Banana da Terra",
-                descricao: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!",
-                foto: pizzaMarguerita,
-                preco: 39.9,
-                porcao: "2 pessoas"
-            },
-            {
-                id: 106,
-                nome: "Pizza de Atum",
-                descricao: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!",
-                foto: pizzaMarguerita,
-                preco: 39.9,
-                porcao: "2 pessoas"
-            },
-
         ]
     },
     {
