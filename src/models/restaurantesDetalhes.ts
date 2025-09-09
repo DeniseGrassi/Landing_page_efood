@@ -11,6 +11,7 @@ import yakisobaMar from "../assets/yakisobaMar.jpg"
 import combinadoSushi from "../assets/combinado-sushi.jpg"
 import picanha from "../assets/picanha.jpg"
 import carneDoSol from "../assets/carnedosol.jpg"
+import fundoChurrascaria from "../assets/fotoFundoChurrascaria.jpg"
 
 export type Prato = {
     id: number;
@@ -112,7 +113,7 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
     },
     {
         id: 4,
-        capa: sushiDeliFrente,
+        capa: fundoChurrascaria,
         tipo: "Churrascaria",
         titulo: "Boi na Brasa",
         cardapio: [
