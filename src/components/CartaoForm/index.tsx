@@ -1,85 +1,6 @@
-// src/components/CartaoForm.tsx
 import React, { useMemo, useState } from "react";
-import styled from "styled-components";
-import { cores } from "../../styles";
+import { Button, Form, Help, Input, Label, Row, ErrorText } from "./styles";
 
-const Form = styled.form`
-  display: grid;
-  gap: 16px;
-  max-width: 460px;
-`;
-
-const Row = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const Label = styled.label`
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: ${cores.laranjaEscuro};
-  margin-bottom: 6px;
-`;
-
-const Input = styled.input<{ $error?: boolean }>`
-  width: 100%;
-  height: 44px;
-  border-radius: 8px;
-  padding: 0 12px;
-  border: 2px solid ${({ $error }) => ($error ? "#e53935" : "#ddd")};
-  outline: none;
-  font-size: 16px;
-  background: #fff;
-  color: #111;
-
-  &:focus {
-    border-color: ${({ $error }) => ($error ? "#e53935" : cores.laranjaEscuro)};
-    box-shadow: 0 0 0 3px rgba(228, 91, 104, 0.2);
-  }
-
-  &::placeholder {
-    color: #9ca3af;
-  }
-`;
-
-const Help = styled.small`
-  display: block;
-  margin-top: 6px;
-  color: #6b7280;
-`;
-
-const Error = styled.small`
-  display: block;
-  margin-top: 6px;
-  color: #e53935;
-  font-weight: 700;
-`;
-
-const Button = styled.button`
-  height: 44px;
-  border-radius: 8px;
-  border: 0;
-  font-weight: 800;
-  cursor: pointer;
-  background: ${cores.laranjaClaro};
-  color: ${cores.laranjaEscuro};
-
-  &:hover {
-    filter: brightness(0.98);
-  }
-
-  &:disabled {
-    filter: grayscale(0.4);
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-`;
 
 type CardBrand = "Visa" | "Mastercard" | "Amex" | "Elo" | "Hipercard" | "Desconhecida";
 
@@ -88,13 +9,11 @@ function onlyDigits(s: string) {
 }
 
 function formatCardNumber(value: string) {
-    // Exibe em blocos de 4: "1111 2222 3333 4444"
     const digits = onlyDigits(value).slice(0, 19);
     return digits.replace(/(\d{4})(?=\d)/g, "$1 ").trim();
 }
 
 function detectBrand(pan: string): CardBrand {
-    // Detecção simplificada para UI
     if (/^4\d{0,}$/.test(pan)) return "Visa";
     if (/^5[1-5]\d{0,}$/.test(pan) || /^2(2|7)\d{0,}$/.test(pan)) return "Mastercard";
     if (/^3[47]\d{0,}$/.test(pan)) return "Amex";
@@ -121,20 +40,19 @@ function luhnValid(pan: string) {
 }
 
 function formatExpiry(value: string) {
-    const digits = onlyDigits(value).slice(0, 4); // MMYY
+    const digits = onlyDigits(value).slice(0, 4);
     if (digits.length <= 2) return digits;
     return `${digits.slice(0, 2)}/${digits.slice(2)}`;
 }
 
 function validExpiry(exp: string) {
-    // Espera "MM/YY"
     if (!/^\d{2}\/\d{2}$/.test(exp)) return false;
     const [mmStr, yyStr] = exp.split("/");
     const mm = Number(mmStr);
     const yy = Number(yyStr);
     if (mm < 1 || mm > 12) return false;
 
-    // Considera o último dia do mês: 20YY
+
     const fullYear = 2000 + yy;
     const now = new Date();
     const expDate = new Date(fullYear, mm, 0, 23, 59, 59);
@@ -157,10 +75,10 @@ export default function CartaoForm({
     onSubmitTokenize
 }: {
     onSubmitTokenize: (payload: {
-        number: string; // PAN (enviar DIRETO ao gateway; não salve)
+        number: string;
         holder: string;
         expiryMonth: string;
-        expiryYear: string; // "20YY"
+        expiryYear: string;
         cvv: string;
     }) => Promise<void> | void;
 }) {
@@ -226,10 +144,10 @@ export default function CartaoForm({
                     $error={!!errors.number}
                     aria-invalid={!!errors.number}
                     aria-describedby="err-number"
-                    maxLength={19 + 3} // 19 dígitos + 3 espaços
+                    maxLength={19 + 3}
                 />
                 {errors.number ? (
-                    <Error id="err-number">{errors.number}</Error>
+                    <ErrorText id="err-number">{errors.number}</ErrorText>
                 ) : (
                     <Help>Nunca armazene o número. Envie apenas ao provedor para tokenizar.</Help>
                 )}
@@ -249,7 +167,7 @@ export default function CartaoForm({
                     aria-describedby="err-holder"
                     autoCapitalize="characters"
                 />
-                {errors.holder && <Error id="err-holder">{errors.holder}</Error>}
+                {errors.holder && <ErrorText id="err-holder">{errors.holder}</ErrorText>}
             </div>
 
             <Row>
@@ -268,7 +186,7 @@ export default function CartaoForm({
                         aria-describedby="err-expiry"
                         maxLength={5}
                     />
-                    {errors.expiry && <Error id="err-expiry">{errors.expiry}</Error>}
+                    {errors.expiry && <ErrorText id="err-expiry">{errors.expiry}</ErrorText>}
                 </div>
 
                 <div>
@@ -287,7 +205,7 @@ export default function CartaoForm({
                         onPaste={(e) => e.preventDefault()} // opcional: evita colar CVV
                         maxLength={brand === "Amex" ? 4 : 3}
                     />
-                    {errors.cvv && <Error id="err-cvv">{errors.cvv}</Error>}
+                    {errors.cvv && <ErrorText id="err-cvv">{errors.cvv}</ErrorText>}
                 </div>
             </Row>
 

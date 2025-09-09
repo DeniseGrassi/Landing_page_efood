@@ -1,11 +1,11 @@
-// src/Pages/checkout/index.tsx
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CartaoForm from "../../components/CartaoForm";
 import { cores } from "../../styles";
 
+/* ============ UI ============ */
 const Page = styled.div`
   min-height: calc(100vh - 160px);
   display: grid;
@@ -118,6 +118,7 @@ const Resumo = styled.div`
   }
 `;
 
+/* ============ Tipos/Constantes ============ */
 enum Step {
   Entrega = 1,
   Pagamento = 2,
@@ -131,11 +132,35 @@ type CarrinhoItem = {
   foto?: string | null;
 };
 
+/* ============ Helpers de validação ============ */
+const emailOk = (v: string) =>
+  // tolerante e suficiente para formulário de checkout
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
+const cepOk = (v: string) => /^\d{5}-?\d{3}$/.test(v.replace(/\s/g, ""));
+
+const ufOk = (v: string) => /^[A-Za-z]{2}$/.test(v.trim());
+
+const numeroOk = (v: string) => {
+  const n = Number(String(v).trim());
+  return Number.isFinite(n) && n > 0; // evita "0", vazio, NaN
+};
+
+/* ============ Componente ============ */
 export default function Checkout() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>(Step.Entrega);
+  const location = useLocation();
 
-  // === Form Entrega ===
+  // Step inicial conforme a rota
+  const initialStep =
+    location.pathname.endsWith("/pagamento") ? Step.Pagamento : Step.Entrega;
+  const [step, setStep] = useState<Step>(initialStep);
+
+  useEffect(() => {
+    setStep(location.pathname.endsWith("/pagamento") ? Step.Pagamento : Step.Entrega);
+  }, [location.pathname]);
+
+  // Campos de entrega
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cep, setCep] = useState("");
@@ -144,24 +169,12 @@ export default function Checkout() {
   const [cidade, setCidade] = useState("");
   const [uf, setUf] = useState("");
 
-  const entregaValida = useMemo(
-    () =>
-      nome.trim().length >= 3 &&
-      /\S+@\S+\.\S+/.test(email) &&
-      cep.replace(/\D+/g, "").length >= 8 &&
-      endereco.trim().length >= 3 &&
-      numero.trim().length >= 1 &&
-      cidade.trim().length >= 2 &&
-      uf.trim().length >= 2,
-    [nome, email, cep, endereco, numero, cidade, uf]
-  );
-
-  // === Itens do Redux ===
+  // Redux carrinho (com fallback seguro)
   const { items: itensCarrinho = [], total = 0 } = useSelector(
-    (state: any) => state.carrinho || { items: [], total: 0 }
+    (state: any) => state?.carrinho ?? { items: [], total: 0 }
   ) as { items: CarrinhoItem[]; total: number };
 
-  // Agrupa itens iguais para exibir quantidade
+  // Agrupa itens iguais para o resumo
   const itensResumo = useMemo(() => {
     const acc: Record<number, CarrinhoItem & { quantidade: number }> = {};
     for (const it of itensCarrinho) {
@@ -171,17 +184,41 @@ export default function Checkout() {
     return Object.values(acc);
   }, [itensCarrinho]);
 
-  // === handlers ===
+  // Validação da etapa de entrega
+  const entregaValida = useMemo(() => {
+    return (
+      nome.trim().length >= 3 &&
+      emailOk(email) &&
+      cepOk(cep) &&
+      endereco.trim().length >= 3 &&
+      numeroOk(numero) &&
+      cidade.trim().length >= 2 &&
+      ufOk(uf)
+    );
+  }, [nome, email, cep, endereco, numero, cidade, uf]);
+
+  /* ===== Handlers ===== */
   function avancar() {
-    if (step === Step.Entrega && !entregaValida) return;
+    if (step === Step.Entrega) {
+      if (!entregaValida) return; // por segurança
+      navigate("/checkout/pagamento");
+      setStep(Step.Pagamento);
+      return;
+    }
     if (step < Step.Confirmacao) setStep((s) => (s + 1) as Step);
   }
 
   function voltar() {
+    if (step === Step.Pagamento) {
+      navigate("/checkout");
+      setStep(Step.Entrega);
+      return;
+    }
     if (step > Step.Entrega) setStep((s) => (s - 1) as Step);
     else navigate(-1);
   }
 
+  /* ============ Render ============ */
   return (
     <Page>
       <Conteudo>{/* espaço visual do layout */}</Conteudo>
@@ -196,7 +233,10 @@ export default function Checkout() {
             <Input
               value={nome}
               onChange={(e) => setNome(e.target.value)}
+              onBlur={(e) => setNome(e.target.value.trim())}
               placeholder="Seu nome"
+              autoComplete="name"
+              inputMode="text"
             />
 
             <Label>E-mail</Label>
@@ -204,7 +244,10 @@ export default function Checkout() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="voce@email.com"
+              onBlur={(e) => setEmail(e.target.value.trim())}
+              placeholder="seuemail@email.com"
+              autoComplete="email"
+              inputMode="email"
             />
 
             <Row>
@@ -212,18 +255,32 @@ export default function Checkout() {
                 <Label>CEP</Label>
                 <Input
                   value={cep}
-                  onChange={(e) =>
-                    setCep(e.target.value.replace(/[^\d-]/g, "").slice(0, 9))
-                  }
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^\d-]/g, "");
+                    // mantém máscara simples #####-###
+                    const digits = raw.replace(/\D/g, "").slice(0, 8);
+                    const masked =
+                      digits.length > 5
+                        ? `${digits.slice(0, 5)}-${digits.slice(5)}`
+                        : digits;
+                    setCep(masked);
+                  }}
+                  onBlur={(e) => setCep(e.target.value.trim())}
                   placeholder="00000-000"
+                  autoComplete="postal-code"
+                  inputMode="numeric"
                 />
               </div>
               <div>
                 <Label>Número</Label>
                 <Input
                   value={numero}
-                  onChange={(e) => setNumero(e.target.value)}
+                  onChange={(e) =>
+                    setNumero(e.target.value.replace(/[^\d]/g, "").slice(0, 6))
+                  }
+                  onBlur={(e) => setNumero(e.target.value.trim())}
                   placeholder="123"
+                  inputMode="numeric"
                 />
               </div>
             </Row>
@@ -232,7 +289,10 @@ export default function Checkout() {
             <Input
               value={endereco}
               onChange={(e) => setEndereco(e.target.value)}
+              onBlur={(e) => setEndereco(e.target.value.trim())}
               placeholder="Rua / Av."
+              autoComplete="address-line1"
+              inputMode="text"
             />
 
             <Row>
@@ -241,17 +301,21 @@ export default function Checkout() {
                 <Input
                   value={cidade}
                   onChange={(e) => setCidade(e.target.value)}
+                  onBlur={(e) => setCidade(e.target.value.trim())}
                   placeholder="Cidade"
+                  autoComplete="address-level2"
+                  inputMode="text"
                 />
               </div>
               <div>
                 <Label>UF</Label>
                 <Input
                   value={uf}
-                  onChange={(e) =>
-                    setUf(e.target.value.toUpperCase().slice(0, 2))
-                  }
+                  onChange={(e) => setUf(e.target.value.toUpperCase().replace(/[^A-Z]/g, "").slice(0, 2))}
+                  onBlur={(e) => setUf(e.target.value.toUpperCase().trim())}
                   placeholder="BA"
+                  autoComplete="address-level1"
+                  inputMode="text"
                 />
               </div>
             </Row>
@@ -278,8 +342,14 @@ export default function Checkout() {
             </Resumo>
 
             <Rodape>
-              <Btn onClick={voltar}>Voltar</Btn>
-              <Btn $alt onClick={avancar} disabled={!entregaValida}>
+              <Btn type="button" onClick={voltar}>Voltar</Btn>
+              <Btn
+                type="button"
+                $alt
+                onClick={avancar}
+                disabled={!entregaValida}
+                aria-disabled={!entregaValida}
+              >
                 Continuar
               </Btn>
             </Rodape>
@@ -293,7 +363,7 @@ export default function Checkout() {
 
             <CartaoForm
               onSubmitTokenize={async (_payload) => {
-                // 🔒 Tokenize no gateway e, no sucesso:
+                // Aqui você tokeniza/envia ao gateway.
                 setStep(Step.Confirmacao);
               }}
             />
@@ -306,8 +376,11 @@ export default function Checkout() {
             </Resumo>
 
             <Rodape>
-              <Btn onClick={voltar}>Voltar</Btn>
-              <Btn $alt disabled>Continuar</Btn>
+              <Btn type="button" onClick={voltar}>Voltar</Btn>
+              {/* Mantém desabilitado; a continuidade ocorre dentro do CartaoForm */}
+              <Btn type="button" $alt disabled>
+                Continuar
+              </Btn>
             </Rodape>
           </>
         )}
@@ -316,8 +389,7 @@ export default function Checkout() {
           <>
             <Titulo>Confirmação</Titulo>
             <Sub>
-              Pedido realizado com sucesso! Enviamos a confirmação para o seu
-              e-mail.
+              Pedido realizado com sucesso! Enviamos a confirmação para o seu e-mail.
             </Sub>
 
             <Linha />
@@ -328,8 +400,7 @@ export default function Checkout() {
                   <strong>Nome:</strong> {nome}
                 </div>
                 <div>
-                  <strong>Entrega:</strong> {endereco}, {numero} — {cidade}/
-                  {uf} — CEP {cep}
+                  <strong>Entrega:</strong> {endereco}, {numero} — {cidade}/{uf} — CEP {cep}
                 </div>
                 <div style={{ marginTop: 6 }}>
                   <strong>Total:</strong> R$ {total.toFixed(2)}
@@ -338,8 +409,8 @@ export default function Checkout() {
             </Resumo>
 
             <Rodape>
-              <Btn onClick={() => navigate("/")}>Voltar ao início</Btn>
-              <Btn $alt onClick={() => navigate("/")}>Novo pedido</Btn>
+              <Btn type="button" onClick={() => navigate("/")}>Voltar ao início</Btn>
+              <Btn type="button" $alt onClick={() => navigate("/")}>Novo pedido</Btn>
             </Rodape>
           </>
         )}

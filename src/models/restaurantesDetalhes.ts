@@ -1,4 +1,3 @@
-// src/models/restaurantesDetalhes.ts
 import pizzaPerfil from "../assets/imgperfil.png"
 import pizzaMarguerita from "../assets/pizza.png"
 import pizzaCalabresa from "../assets/pizzacalabresa.jpg"
@@ -114,12 +113,12 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
     {
         id: 4,
         capa: fundoChurrascaria,
-        tipo: "Churrascaria",
+        tipo: "Carne",
         titulo: "Boi na Brasa",
         cardapio: [
             {
                 id: 401,
-                nome: "Picanha",
+                nome: "Picanha Premium",
                 descricao: "Picanha suculenta, grelhada no ponto perfeito para realçar seu sabor inconfundível, acompanhada de guarnições selecionadas. Uma experiência que une maciez, aroma defumado e a intensidade de uma das carnes mais nobres do churrasco brasileiro",
                 foto: picanha,
                 preco: 99.9,
@@ -127,7 +126,7 @@ const restaurantesDetalhes: RestauranteDetalhe[] = [
             },
             {
                 id: 402,
-                nome: "Carne do Sol",
+                nome: "Carne do Sol Acebolada",
                 descricao: "Carne de sol macia e saborosa, preparada no ponto certo e servida com acompanhamentos típicos, como arroz, feijão verde, farofa e macaxeira frita. Um prato que resgata a essência da culinária nordestina.",
                 foto: carneDoSol,
                 preco: 89.9,

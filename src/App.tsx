@@ -11,12 +11,14 @@ import Checkout from './Pages/checkout';
 
 
 const Rotas = () => (
-    <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Perfil/:id" element={<Perfil />} />
-        <Route path="/checkout" element={<Checkout />} />
-    </Routes>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/Perfil/:id" element={<Perfil />} />
+    <Route path="/checkout" element={<Checkout />} />
+    <Route path="/checkout/pagamento" element={<Checkout />} /> 
+  </Routes>
 );
+
 
 function App() {
     return (

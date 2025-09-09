@@ -26,7 +26,7 @@ const Home = () => {
       "La Dolce Vitta Trattoria",
       "4.5",
       estrela,
-      ["Italiano"],
+      ["Italiana"],
       "Massas artesanais."
     ),
         new Restaurante(
@@ -44,7 +44,7 @@ const Home = () => {
       "Boi na Brasa",
       "4.5",
       estrela,
-      ["Italiano"],
+      ["Carne"],
       "Carnes nobres assadas."
     )
 
