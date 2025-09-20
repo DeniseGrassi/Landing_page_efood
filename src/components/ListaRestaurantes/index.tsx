@@ -1,29 +1,30 @@
-import Card from '../Card';
-import { CardContainer } from '../Card/styles';
-import Restaurante from '../../models/Restaurante';
-import { Lista } from './styles';
+import { useGetRestaurantesQuery } from '../../services/efoodApi'
+import Card from '../Card'
+import * as S from './styles'
+import estrela from '../../assets/estrelaNota.png'
 
-export type Props = {
-    restaurante: Restaurante[];
-};
-const ListaRestaurantes = ({ restaurante }: Props) => (
-    <CardContainer>
-        <section>
-            <Lista>
-                {restaurante.map((restaurante) => (
-                    <Card
-                        key={restaurante.id}
-                        imagem={restaurante.imagem}
-                        titulo={restaurante.titulo}
-                        nota={restaurante.nota}
-                        imageEstrela={restaurante.imageEstrela}
-                        descricao={restaurante.descricao}
-                        infos={restaurante.infos}
-                        id={restaurante.id}
-                    />
-                ))}
-            </Lista>
-        </section>
-    </CardContainer>
-);
-export default ListaRestaurantes;
+export default function ListaRestaurantes() {
+  const { data, isLoading, isError } = useGetRestaurantesQuery()
+
+  if (isLoading) return <p>Carregando…</p>
+  if (isError || !data) return <p>Erro ao carregar restaurantes.</p>
+
+  return (
+    <S.CardContainer>
+      <S.Lista>
+        {data.map((r) => (
+          <li key={r.id}>
+            <Card
+              id={r.id}
+              titulo={r.titulo}
+              descricao={r.descricao}
+              nota={String(r.avaliacao)}
+              imagem={r.capa}
+              imageEstrela={estrela}
+              infos={[r.tipo]} />
+          </li>
+        ))}
+      </S.Lista>
+    </S.CardContainer>
+  )
+}

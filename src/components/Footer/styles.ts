@@ -1,35 +1,37 @@
-import styled from 'styled-components';
-import { cores } from '../../styles';
+import styled from 'styled-components'
+import { cores } from '../../styles'
 
-export const ContainerFooter = styled.div`
-    background-color: ${cores.laranjaClaro};
-    display: flex;
-    justify-content: center;
-    width: 100%;
+export const Wrapper = styled.footer`
+  /* ocupa toda a largura da janela (igual ao header) */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  background: ${cores.laranjaClaro};
+  padding: clamp(24px, 5vw, 48px) 0;
+`
 
-    bottom: 0;
-    margin-top: auto;
-`;
+export const Inner = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--page-gap);
+  text-align: center;
 
-export const FooterDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-`;
+  img[alt='efood'] {
+    display: block;
+    margin: 0 auto 16px;
+  }
+`
 
-export const DescricaoFooter = styled.p`
-    margin-top: 15px;
-    margin-bottom: 30px;
-    max-width: 500px;
-    font-size: 10px;
-    font-weight: 400;
-`;
+/* A imagem com as três bolinhas (um arquivo só) */
+export const SocialImg = styled.img`
+  display: block;
+  margin: 8px auto 12px;
+  width: clamp(88px, 10vw, 128px); /* ajusta de forma responsiva */
+  height: auto;
+`
 
-export const Logo = styled.img`
-    margin-top: 30px;
-`;
-
-export const RedesSociais = styled.img`
-    margin-top: 15px;
-`;
+export const Copy = styled.p`
+  color: ${cores.laranjaEscuro};
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .9;
+`

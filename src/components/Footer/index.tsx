@@ -1,25 +1,20 @@
-import logo from '../../assets/logo.png';
-import redesSociais from '../../assets/redesSociais.png';
+import logo from '../../assets/logo.png'
+import redes from '../../assets/redesSociais.png'  
+import { Wrapper, Inner, SocialImg, Copy } from './styles'
 
-import {
-    ContainerFooter,
-    DescricaoFooter,
-    FooterDiv,
-    Logo,
-    RedesSociais,
-} from './styles';
+export default function Footer() {
+  return (
+    <Wrapper>
+      <Inner>
+        <img src={logo} alt="efood" width={96} height={48} />        
+        <SocialImg src={redes} alt="" aria-hidden="true" />
 
-const Footer = () => (
-    <ContainerFooter>
-        <FooterDiv>
-            <Logo src={logo} alt="logo do efood" />
-            <RedesSociais src={redesSociais} />
-            <DescricaoFooter>
-                A efood é uma plataforma para divulgação de estabelecimentos, a
-                responsabilidade pela entrega, qualidade <br /> dos produtos é
-                toda do estabelecimento contratado.
-            </DescricaoFooter>
-        </FooterDiv>
-    </ContainerFooter>
-);
-export default Footer;
+        <Copy>
+          A efood é uma plataforma para divulgação de estabelecimentos, a responsabilidade pela entrega,
+          qualidade dos produtos e toda do estabelecimento contratado.
+        </Copy>
+      </Inner>
+    </Wrapper>
+  )
+}
+

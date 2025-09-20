@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { cores } from '../../styles';
+import InputMask from 'react-input-mask'
 
 export const Overlay = styled.div`
     position: fixed;
@@ -36,12 +37,11 @@ export const BarraLateral = styled.aside`
 `;
 
 export const ProdutoLista = styled.ul`
-    width: 100%;
-    margin-top: 30px;
-    p {
-        ${cores.laranjaClaro}
-    }
-`;
+  width: 100%;
+  margin-top: 30px;
+  p { color: ${cores.laranjaClaro}; }  
+`
+
 
 export const ProdutoItem = styled.li`
     position: relative;
@@ -113,4 +113,70 @@ export const BotaoContinuar = styled.button`
         pointer-events: none;
   }
 `;
+
+export const SecaoTitulo = styled.h4`
+  color: ${cores.laranjaClaro};
+  margin: 16px 0 8px;
+  font-weight: bold;
+`
+
+export const Campo = styled.div`
+  width: 100%;
+  margin-bottom: 8px;
+`
+
+export const Label = styled.label`
+  display: block;
+  font-size: 12px;
+  color: ${cores.laranjaClaro};
+  margin-bottom: 4px;
+`
+
+export const Input = styled.input`
+  width: 100%;
+  height: 32px;
+  background: ${cores.laranjaClaro};
+  color: ${cores.laranjaEscuro};
+  border: none;
+  padding: 0 8px;
+  outline: none;
+`
+
+export const InputMascara = styled(InputMask)`
+  width: 100%;
+  height: 32px;
+  background: ${cores.laranjaClaro};
+  color: ${cores.laranjaEscuro};
+  border: none;
+  padding: 0 8px;
+  outline: none;
+`
+
+export const Linha = styled.div`
+  display: flex;
+  gap: 8px;
+`
+
+export const BotoesLinha = styled.div`
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+`
+
+export const BotaoSecundario = styled(BotaoContinuar)`
+  background: transparent;
+  color: ${cores.laranjaClaro};
+  border: 1px solid ${cores.laranjaClaro};
+`
+export const Confirmacao = styled.div`
+  color: ${cores.laranjaClaro};
+  font-size: 14px;
+  line-height: 1.5;
+
+    p + p {
+    margin-top: 12px;
+  }
+`
+
 

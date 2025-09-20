@@ -1,14 +1,16 @@
-import { HeaderContainer, HeaderTitle, HeaderLogo } from './styles';
+import { Wrapper, Inner, Titulo, HeaderLogo } from './styles'
 import logo from '../../assets/logo.png';
 
 const Header = () => (
-    <HeaderContainer>
+    <Wrapper>
+        <Inner>
         <HeaderLogo src={logo} alt="logo do Efood" />
-        <HeaderTitle>
+        <Titulo>
             {' '}
             Viva experiências gastronômicas <br /> no conforto da sua casa{' '}
-        </HeaderTitle>
-    </HeaderContainer>
+        </Titulo>
+        </Inner>
+    </Wrapper>
 );
 
 export default Header;

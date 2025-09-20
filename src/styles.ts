@@ -31,25 +31,40 @@ export const GlobalCss = createGlobalStyle`
         flex-direction: column;
         min-height: 100vh;
     }
-        #root {
+
+    :root{
+        --page-gap: clamp(12px, 2vw, 24px);
+        --card-gap: clamp(16px, 2.2vw, 24px);
+    }
+    #root {
         display: flex;
         flex-direction: column;
-                flex-grow: 1;
-        min-height: 100vh; 
-        /* height: 100%; Garante que o conteúdo ocupe toda a tela */
+        flex-grow: 1;
+        min-height: 100vh;
     }
 `;
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Isso impede que o Container fique menor que a tela */
-    width: 100%;
-    flex-grow: 1; /* Isso força ele a ocupar todo o espaço disponível */
-`;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  padding-inline: var(--page-gap);
+  max-width: 1200px;
+  margin: 0 auto;
+`
 
 export const Content = styled.div`
     flex-grow: 1;
     width: 100%;
 `;
+
+export const bp = {
+    xs: 360,
+    sm: 480,
+    md: 768,
+    lg: 1024,
+    xl: 1280
+}
+
 
 export default GlobalCss;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Fundo from '../../assets/fundo.png';
 import { cores } from '../../styles';
 import LaDolce from '../../assets/LaDolce.png';
+import { bp } from '../../styles'
 
 export const HeaderPerfil = styled.header`
   background-image: url(${Fundo});
@@ -12,17 +13,18 @@ export const HeaderPerfil = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 200px;
+  padding-inline: var(--page-gap);
 `;
 
-export const NavContainer = styled.nav`
+export const NavContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  gap: 12px;
 
-  a {
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    color: ${cores.laranjaEscuro};
+  @media (max-width: ${bp.md}px){
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -44,12 +46,17 @@ export const ContainerVoltar = styled.div`
   gap: 8px;
 `;
 
-export const CartInfo = styled.p`
-  font-size: 18px;
-  color: ${cores.laranjaEscuro};
-  font-weight: bold;
+export const CartInfo = styled.button`
+  background: transparent;
+  border: none;
+  color: inherit;
   cursor: pointer;
-`;
+  font-weight: bold;
+
+  @media (max-width: ${bp.md}px){
+    align-self: stretch;
+  }
+`
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -111,20 +118,26 @@ export const NomeRestaurante = styled.h3`
 `;
 
 
-export const CardsGrid = styled.div`
+export const CardsGrid = styled.ul`
   display: grid;
-  gap: 24px;
-  margin-top: 56px;
+  gap: var(--card-gap);
 
- 
-  grid-template-columns: repeat(auto-fit, minmax(320px, 360px));
-  justify-content: center;   
+  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+  justify-content: center;  
+  justify-items: center;  
 
-  @media (max-width: 768px) {
-    grid-template-columns: minmax(260px, 1fr);
-    justify-content: center;
+  
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(3, minmax(280px, 360px));
+  }
+  @media (max-width: 1099px) and (min-width: 700px) {
+    grid-template-columns: repeat(2, minmax(280px, 360px));
+  }
+  @media (max-width: 699px) {
+    grid-template-columns: minmax(280px, 1fr);
   }
 `;
+
 
 export const Card = styled.div`
   width: 360px;
@@ -205,51 +218,61 @@ export const AbrirModal = styled.button`
     background-color: ${cores.corFundo};
     color: ${cores.laranjaEscuro};
   }
+
+  @media (max-width: ${bp.sm}px){
+    width: 100%;
+  }
 `;
 
 export const ModalBackdrop = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.7);
+
+  display: grid;
+  place-items: center;
+  padding: 24px;
 `;
 
 export const ModalContent = styled.div`
-  background: ${cores.laranjaEscuro};
-  width: 1024px;
-  height: 344px;
-  position: absolute;
-  display: flex;
-  padding: 24px;
+  position: relative;
 
-  img:first-child {
-    cursor: pointer;
-    position: absolute;
-    top: 16px;
-    right: 16px;
-  }
-  img:nth-child(2) {
-    width: 280px;
-    height: 280px;
-    margin-right: 24px;
-    object-fit: fill;
-  }
+  background: ${cores.laranjaEscuro};
+  color: ${cores.laranjaClaro};
+  border-radius: 4px;
+
+  /* largura/altura sempre dentro da viewport */
+  width: min(920px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+
+  /* layout */
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  gap: 16px;
+  padding: 16px;
+
+  /* textos */
   h3 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: ${cores.laranjaClaro};
+    margin: 4px 0 8px;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1.2;
   }
   p {
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 22px;
-    color: ${cores.laranjaClaro};
+    margin: 8px 0;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  /* empilha no mobile */
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    border-radius: 6px;
   }
 `;
+
 
 export const Carregando = styled.div`
   display: flex;
@@ -271,4 +294,23 @@ export const Carregando = styled.div`
   @keyframes is-rotating {
     to { transform: rotate(2turn); }
   }
+`;
+
+export const PratoImagem = styled.img`
+  width: 100%;
+  height: auto;
+  max-height: min(60vh, 480px);
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+`;
+
+export const FecharModal = styled.img`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 2;
 `;

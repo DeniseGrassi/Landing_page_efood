@@ -1,40 +1,21 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Container, Content, GlobalCss } from './styles';
-import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import HomePage from './Pages/home'
+import Perfil from './components/PerfilRest'
+import CheckoutPage from './Pages/checkout'
+import Carrinho from './components/Carrinho'
 
-import Home from './Pages/home';
-import Perfil from './components/PerfilRest';
-import Footer from './components/Footer';
-import Carrinho from './components/Carrinho';
-import store from './store';
-import Checkout from './Pages/checkout';
-
-
-const Rotas = () => (
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/Perfil/:id" element={<Perfil />} />
-    <Route path="/checkout" element={<Checkout />} />
-    <Route path="/checkout/pagamento" element={<Checkout />} /> 
-  </Routes>
-);
-
-
-function App() {
+export default function App() {
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <GlobalCss />
-                <Container>
-                    <Content>
-                        <Rotas />
-                    </Content>
-                    <Footer />
-                </Container>
-                <Carrinho />
-            </BrowserRouter>
-        </Provider>
-    );
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/Perfil/:id" element={<Perfil />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+            </Routes>
+            <Carrinho />
+        </BrowserRouter>
+    )
 }
 
-export default App;
+
+
