@@ -27,7 +27,7 @@ export type CheckoutResponse = { orderId: string }
 export const efoodApi = createApi({
   reducerPath: 'efoodApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ebac-fake-api.vercel.app/api/efood/'
+    baseUrl: 'https://api-ebac.vercel.app/api/efood/restaurantes'
   }),
   endpoints: (builder) => ({
     getRestaurantes: builder.query<Restaurante[], void>({
